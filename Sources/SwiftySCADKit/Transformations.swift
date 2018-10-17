@@ -83,7 +83,7 @@ public struct Rotate: Transformation {
         self.dz = dz
         self.subjects = subjects
     }
-    public init(_ subjects: OpenSCAD..., to dx: Double, _ dy: Double, _ dz: Double) {
+    public init(_ subjects: OpenSCAD..., by dx: Double, _ dy: Double, _ dz: Double) {
         self.dx = dx
         self.dy = dy
         self.dz = dz
@@ -113,7 +113,7 @@ public struct Translate: Transformation {
         self.dz = dz
         self.subjects = subjects
     }
-    public init(_ subjects: OpenSCAD..., to dx: Double, _ dy: Double, _ dz: Double) {
+    public init(_ subjects: OpenSCAD..., by dx: Double, _ dy: Double, _ dz: Double) {
         self.dx = dx
         self.dy = dy
         self.dz = dz
@@ -143,7 +143,7 @@ public struct Mirror: Transformation {
         self.dz = dz
         self.subjects = subjects
     }
-    public init(_ subjects: OpenSCAD..., to dx: Double, _ dy: Double, _ dz: Double) {
+    public init(_ subjects: OpenSCAD..., across dx: Double, _ dy: Double, _ dz: Double) {
         self.dx = dx
         self.dy = dy
         self.dz = dz
