@@ -7,6 +7,8 @@
 
 import Foundation
 
+//MARK: - Cube / Rectangular Prism
+
 extension OpenSCAD {
     static func cube(withSideLength sideLength: Double, centered: Bool) -> OpenSCAD {
         var s = OpenSCAD()
@@ -23,6 +25,21 @@ extension OpenSCAD {
     }
 }
 
+@available(*, deprecated, renamed: "OpenSCAD.cube")
+public func Cube(withSideLength sideLength: Double, centered: Bool) -> OpenSCAD {
+    return OpenSCAD.cube(withSideLength: sideLength, centered: centered)
+}
+@available(*, deprecated, renamed: "OpenSCAD.cube")
+public func Cube(height: Double, width: Double, depth: Double, centered: Bool) -> OpenSCAD {
+    return OpenSCAD.cube(height: height, width: width, depth: depth, centered: centered)
+}
+@available(*, deprecated, renamed: "OpenSCAD.rectangularPrism")
+public func RectangularPrism(height: Double, width: Double, depth: Double, centered: Bool) -> OpenSCAD {
+    return OpenSCAD.cube(height: height, width: width, depth: depth, centered: centered)
+}
+
+//MARK: - Sphere
+
 extension OpenSCAD {
     static func sphere(_ radius: Double) -> OpenSCAD {
         var s = OpenSCAD()
@@ -31,6 +48,13 @@ extension OpenSCAD {
     }
 }
 
+@available(*, deprecated, renamed: "OpenSCAD.sphere")
+public func Sphere(_ radius: Double) -> OpenSCAD {
+    return OpenSCAD.sphere(radius)
+}
+
+//MARK: - Cylinder
+
 extension OpenSCAD {
     static func cylinder(height: Double, topRadius: Double, bottomRadius: Double, centered: Bool) -> OpenSCAD {
         var s = OpenSCAD()
@@ -38,6 +62,13 @@ extension OpenSCAD {
         return s
     }
 }
+
+@available(*, deprecated, renamed: "OpenSCAD.cylinder")
+public func Cylinder(height: Double, topRadius: Double, bottomRadius: Double, centered: Bool) -> OpenSCAD {
+    return OpenSCAD.cylinder(height: height, topRadius: topRadius, bottomRadius: bottomRadius, centered: centered)
+}
+
+//MARK: - Polyhedron
 
 extension OpenSCAD {
     public struct Point: Hashable {
@@ -92,10 +123,26 @@ extension OpenSCAD {
     }
 }
 
+@available(*, deprecated, renamed: "OpenSCAD.polyhedron")
+public func Polyhedron(faces: OpenSCAD.Face...) -> OpenSCAD {
+    return OpenSCAD.polyhedron(faces: faces)
+}
+@available(*, deprecated, renamed: "OpenSCAD.polyhedron")
+public func Polyhedron(faces: [OpenSCAD.Face]) -> OpenSCAD {
+    return OpenSCAD.polyhedron(faces: faces)
+}
+
+//MARK: - Triangular Prism
+
 extension OpenSCAD {
     static func triangularPrism(bottom: (a: Point, b: Point, c: Point), top: (a: Point, b: Point, c: Point)) -> OpenSCAD {
         return polyhedron(faces: Face(points: [bottom.a, bottom.c, bottom.b]), Face(points: [top.a, top.b, top.c]), Face(points: [top.b, top.a, bottom.a, bottom.b]), Face(points: [top.a, top.c, bottom.c, bottom.a]), Face(points: [top.c, top.b, bottom.b, bottom.c]))
     }
+}
+
+@available(*, deprecated, renamed: "OpenSCAD.triangularPrism")
+public func TriangularPrism(bottom: (a: OpenSCAD.Point, b: OpenSCAD.Point, c: OpenSCAD.Point), top: (a: OpenSCAD.Point, b: OpenSCAD.Point, c: OpenSCAD.Point)) -> OpenSCAD {
+    return OpenSCAD.triangularPrism(bottom: bottom, top: top)
 }
 
 //TODO: Global constructor functions that return polyhedrons.
