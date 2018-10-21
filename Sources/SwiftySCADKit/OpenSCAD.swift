@@ -1,7 +1,7 @@
 import Foundation
 
-public protocol OpenSCAD {
-    var SCADValue: String { get }
+public struct OpenSCAD {
+    public var SCADValue: String = ""
 }
 
 public struct Config {

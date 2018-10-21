@@ -7,76 +7,61 @@
 
 import Foundation
 
-public protocol BooleanOperator: OpenSCAD {
-    var parent: OpenSCAD { get }
-    var children: [OpenSCAD] { get }
-    init(_ parent: OpenSCAD, _ children: OpenSCAD...)
-}
-
-public struct Union: BooleanOperator {
-    public let parent: OpenSCAD
-    public let children: [OpenSCAD]
-    
-    public init(_ parent: OpenSCAD, _ children: OpenSCAD...) {
-        self.parent = parent
-        self.children = children
-    }
-    
-    public var SCADValue: String {
-        let base = "union() {\n    \(parent.SCADValue)\n"
-        let end = "};"
-        var mid = ""
-        for child in children {
-            mid += "    \(child.SCADValue)\n"
+extension OpenSCAD {
+    static func union(_ parent: OpenSCAD, _ children: OpenSCAD...) -> OpenSCAD {
+        var s = OpenSCAD()
+        let SCADClosure: () -> String = {
+            let base = "union() {\n    \(parent.SCADValue)\n"
+            let end = "};"
+            var mid = ""
+            for child in children {
+                mid += "    \(child.SCADValue)\n"
+            }
+            return base + mid + end
         }
-        return base + mid + end
-    }
-}
-
-public func + (lhs: OpenSCAD, rhs: OpenSCAD) -> Union {
-    return Union(lhs, rhs)
-}
-
-public struct Difference: BooleanOperator {
-    public let parent: OpenSCAD
-    public let children: [OpenSCAD]
-    
-    public init(_ parent: OpenSCAD, _ children: OpenSCAD...) {
-        self.parent = parent
-        self.children = children
+        s.SCADValue = SCADClosure()
+        return s
     }
     
-    public var SCADValue: String {
-        let base = "difference() {\n    \(parent.SCADValue)\n"
-        let end = "};"
-        var mid = ""
-        for child in children {
-            mid += "    \(child.SCADValue)\n"
+    static func + (lhs: OpenSCAD, rhs: OpenSCAD) -> OpenSCAD {
+        return union(lhs, rhs)
+    }
+}
+    
+extension OpenSCAD {
+    static func difference(_ parent: OpenSCAD, _ children: OpenSCAD...) -> OpenSCAD {
+        var s = OpenSCAD()
+        let SCADClosure: () -> String = {
+            let base = "difference() {\n    \(parent.SCADValue)\n"
+            let end = "};"
+            var mid = ""
+            for child in children {
+                mid += "    \(child.SCADValue)\n"
+            }
+            return base + mid + end
         }
-        return base + mid + end
+        s.SCADValue = SCADClosure()
+        return s
+    }
+    
+    static func - (lhs: OpenSCAD, rhs: OpenSCAD) -> OpenSCAD {
+        return difference(lhs, rhs)
     }
 }
 
-public func - (lhs: OpenSCAD, rhs: OpenSCAD) -> Difference {
-    return Difference(lhs, rhs)
-}
-
-public struct Intersection: BooleanOperator {
-    public let parent: OpenSCAD
-    public let children: [OpenSCAD]
-    
-    public init(_ parent: OpenSCAD, _ children: OpenSCAD...) {
-        self.parent = parent
-        self.children = children
-    }
-    
-    public var SCADValue: String {
-        let base = "intersection() {\n    \(parent.SCADValue)\n"
-        let end = "};"
-        var mid = ""
-        for child in children {
-            mid += "    \(child.SCADValue)\n"
+extension OpenSCAD {
+    static func intersection(_ parent: OpenSCAD, _ children: OpenSCAD...) -> OpenSCAD {
+        var s = OpenSCAD()
+        let SCADClosure: () -> String = {
+            let base = "intersection() {\n    \(parent.SCADValue)\n"
+            let end = "};"
+            var mid = ""
+            for child in children {
+                mid += "    \(child.SCADValue)\n"
+            }
+            return base + mid + end
         }
-        return base + mid + end
+        s.SCADValue = SCADClosure()
+        return s
     }
 }

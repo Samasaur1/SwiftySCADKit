@@ -7,190 +7,188 @@
 
 import Foundation
 
-public protocol Transformation: OpenSCAD {
-    var subjects: [OpenSCAD] { get }
-}
-
-public struct Scale: Transformation {
-    public let dx: Double
-    public let dy: Double
-    public let dz: Double
-    public let subjects: [OpenSCAD]
-    
-    public init(_ dx: Double, _ dy: Double, _ dz: Double, subjects: OpenSCAD...) {
-        self.dx = dx
-        self.dy = dy
-        self.dz = dz
-        self.subjects = subjects
-    }
-    public init(_ subjects: OpenSCAD..., to dx: Double, _ dy: Double, _ dz: Double) {
-        self.dx = dx
-        self.dy = dy
-        self.dz = dz
-        self.subjects = subjects
-    }
-    
-    public var SCADValue: String {
-        let base = "scale([\(dx), \(dy), \(dz)]) {\n"
-        let end = "};"
-        var mid = ""
-        for subject in subjects {
-            mid += "    \(subject.SCADValue)\n"
+extension OpenSCAD {
+    static func scale(_ dx: Double, _ dy: Double, _ dz: Double, subjects: OpenSCAD...) -> OpenSCAD {
+        var s = OpenSCAD()
+        let SCADClosure: () -> String = {
+            let base = "scale([\(dx), \(dy), \(dz)]) {\n"
+            let end = "};"
+            var mid = ""
+            for subject in subjects {
+                mid += "    \(subject.SCADValue)\n"
+            }
+            return base + mid + end
         }
-        return base + mid + end
+        s.SCADValue = SCADClosure()
+        return s
     }
-}
-
-public struct Resize: Transformation {
-    public let newx: Double
-    public let newy: Double
-    public let newz: Double
-    public let subjects: [OpenSCAD]
-    
-    public init(_ newx: Double, _ newy: Double, _ newz: Double, subjects: OpenSCAD...) {
-        self.newx = newx
-        self.newy = newy
-        self.newz = newz
-        self.subjects = subjects
-    }
-    public init(_ subjects: OpenSCAD..., to newx: Double, _ newy: Double, _ newz: Double) {
-        self.newx = newx
-        self.newy = newy
-        self.newz = newz
-        self.subjects = subjects
-    }
-    
-    public var SCADValue: String {
-        let base = "resize([\(newx), \(newy), \(newz)]) {\n"
-        let end = "};"
-        var mid = ""
-        for subject in subjects {
-            mid += "    \(subject.SCADValue)\n"
+    static func scale(_ subjects: OpenSCAD..., to dx: Double, _ dy: Double, _ dz: Double) -> OpenSCAD {
+        var s = OpenSCAD()
+        let SCADClosure: () -> String = {
+            let base = "scale([\(dx), \(dy), \(dz)]) {\n"
+            let end = "};"
+            var mid = ""
+            for subject in subjects {
+                mid += "    \(subject.SCADValue)\n"
+            }
+            return base + mid + end
         }
-        return base + mid + end
+        s.SCADValue = SCADClosure()
+        return s
     }
 }
 
-public struct Rotate: Transformation {
-    public let dx: Double
-    public let dy: Double
-    public let dz: Double
-    public let subjects: [OpenSCAD]
-    
-    public init(_ dx: Double, _ dy: Double, _ dz: Double, subjects: OpenSCAD...) {
-        self.dx = dx
-        self.dy = dy
-        self.dz = dz
-        self.subjects = subjects
-    }
-    public init(_ subjects: OpenSCAD..., by dx: Double, _ dy: Double, _ dz: Double) {
-        self.dx = dx
-        self.dy = dy
-        self.dz = dz
-        self.subjects = subjects
-    }
-    
-    public var SCADValue: String {
-        let base = "rotate([\(dx), \(dy), \(dz)]) {\n"
-        let end = "};"
-        var mid = ""
-        for subject in subjects {
-            mid += "    \(subject.SCADValue)\n"
+extension OpenSCAD {
+    static func resize(_ newx: Double, _ newy: Double, _ newz: Double, subjects: OpenSCAD...) -> OpenSCAD {
+        var s = OpenSCAD()
+        let SCADClosure: () -> String = {
+            let base = "resize([\(newx), \(newy), \(newz)]) {\n"
+            let end = "};"
+            var mid = ""
+            for subject in subjects {
+                mid += "    \(subject.SCADValue)\n"
+            }
+            return base + mid + end
         }
-        return base + mid + end
+        s.SCADValue = SCADClosure()
+        return s
     }
-}
-
-public struct Translate: Transformation {
-    public let dx: Double
-    public let dy: Double
-    public let dz: Double
-    public let subjects: [OpenSCAD]
-    
-    public init(_ dx: Double, _ dy: Double, _ dz: Double, subjects: OpenSCAD...) {
-        self.dx = dx
-        self.dy = dy
-        self.dz = dz
-        self.subjects = subjects
-    }
-    public init(_ subjects: OpenSCAD..., by dx: Double, _ dy: Double, _ dz: Double) {
-        self.dx = dx
-        self.dy = dy
-        self.dz = dz
-        self.subjects = subjects
-    }
-    
-    public var SCADValue: String {
-        let base = "translate([\(dx), \(dy), \(dz)]) {\n"
-        let end = "};"
-        var mid = ""
-        for subject in subjects {
-            mid += "    \(subject.SCADValue)\n"
+    static func resize(_ subjects: OpenSCAD..., to newx: Double, _ newy: Double, _ newz: Double) -> OpenSCAD {
+        var s = OpenSCAD()
+        let SCADClosure: () -> String = {
+            let base = "resize([\(newx), \(newy), \(newz)]) {\n"
+            let end = "};"
+            var mid = ""
+            for subject in subjects {
+                mid += "    \(subject.SCADValue)\n"
+            }
+            return base + mid + end
         }
-        return base + mid + end
+        s.SCADValue = SCADClosure()
+        return s
     }
 }
 
-public struct Mirror: Transformation {
-    public let dx: Double
-    public let dy: Double
-    public let dz: Double
-    public let subjects: [OpenSCAD]
-    
-    public init(_ dx: Double, _ dy: Double, _ dz: Double, subjects: OpenSCAD...) {
-        self.dx = dx
-        self.dy = dy
-        self.dz = dz
-        self.subjects = subjects
-    }
-    public init(_ subjects: OpenSCAD..., across dx: Double, _ dy: Double, _ dz: Double) {
-        self.dx = dx
-        self.dy = dy
-        self.dz = dz
-        self.subjects = subjects
-    }
-    
-    public var SCADValue: String {
-        let base = "translate([\(dx), \(dy), \(dz)]) {\n"
-        let end = "};"
-        var mid = ""
-        for subject in subjects {
-            mid += "    \(subject.SCADValue)\n"
+extension OpenSCAD {
+    static func rotate(_ dx: Double, _ dy: Double, _ dz: Double, subjects: OpenSCAD...) -> OpenSCAD {
+        var s = OpenSCAD()
+        let SCADClosure: () -> String = {
+            let base = "rotate([\(dx), \(dy), \(dz)]) {\n"
+            let end = "};"
+            var mid = ""
+            for subject in subjects {
+                mid += "    \(subject.SCADValue)\n"
+            }
+            return base + mid + end
         }
-        return base + mid + end
+        s.SCADValue = SCADClosure()
+        return s
     }
-}
-
-public struct Color: Transformation {
-    public let r: Double
-    public let g: Double
-    public let b: Double
-    public let a: Double
-    public let subjects: [OpenSCAD]
-    
-    public init(_ r: Double, _ g: Double, _ b: Double, _ a: Double, subjects: OpenSCAD...) {
-        self.r = r
-        self.g = g
-        self.b = b
-        self.a = a
-        self.subjects = subjects
-    }
-    public init(_ subjects: OpenSCAD..., to r: Double, _ g: Double, _ b: Double, _ a: Double) {
-        self.r = r
-        self.g = g
-        self.b = b
-        self.a = a
-        self.subjects = subjects
-    }
-    
-    public var SCADValue: String {
-        let base = "translate([\(r), \(g), \(b), \(a)]) {\n"
-        let end = "};"
-        var mid = ""
-        for subject in subjects {
-            mid += "    \(subject.SCADValue)\n"
+    static func rotate(_ subjects: OpenSCAD..., by dx: Double, _ dy: Double, _ dz: Double) -> OpenSCAD {
+        var s = OpenSCAD()
+        let SCADClosure: () -> String = {
+            let base = "rotate([\(dx), \(dy), \(dz)]) {\n"
+            let end = "};"
+            var mid = ""
+            for subject in subjects {
+                mid += "    \(subject.SCADValue)\n"
+            }
+            return base + mid + end
         }
-        return base + mid + end
+        s.SCADValue = SCADClosure()
+        return s
     }
 }
 
+extension OpenSCAD {
+    static func translate(_ dx: Double, _ dy: Double, _ dz: Double, subjects: OpenSCAD...) -> OpenSCAD {
+        var s = OpenSCAD()
+        let SCADClosure: () -> String = {
+            let base = "translate([\(dx), \(dy), \(dz)]) {\n"
+            let end = "};"
+            var mid = ""
+            for subject in subjects {
+                mid += "    \(subject.SCADValue)\n"
+            }
+            return base + mid + end
+        }
+        s.SCADValue = SCADClosure()
+        return s
+    }
+    static func translate(_ subjects: OpenSCAD..., by dx: Double, _ dy: Double, _ dz: Double) -> OpenSCAD {
+        var s = OpenSCAD()
+        let SCADClosure: () -> String = {
+            let base = "translate([\(dx), \(dy), \(dz)]) {\n"
+            let end = "};"
+            var mid = ""
+            for subject in subjects {
+                mid += "    \(subject.SCADValue)\n"
+            }
+            return base + mid + end
+        }
+        s.SCADValue = SCADClosure()
+        return s
+    }
+}
+
+extension OpenSCAD {
+    static func mirror(_ dx: Double, _ dy: Double, _ dz: Double, subjects: OpenSCAD...) -> OpenSCAD {
+        var s = OpenSCAD()
+        let SCADClosure: () -> String = {
+            let base = "mirror([\(dx), \(dy), \(dz)]) {\n"
+            let end = "};"
+            var mid = ""
+            for subject in subjects {
+                mid += "    \(subject.SCADValue)\n"
+            }
+            return base + mid + end
+        }
+        s.SCADValue = SCADClosure()
+        return s
+    }
+    static func mirror(_ subjects: OpenSCAD..., across dx: Double, _ dy: Double, _ dz: Double) -> OpenSCAD {
+        var s = OpenSCAD()
+        let SCADClosure: () -> String = {
+            let base = "mirror([\(dx), \(dy), \(dz)]) {\n"
+            let end = "};"
+            var mid = ""
+            for subject in subjects {
+                mid += "    \(subject.SCADValue)\n"
+            }
+            return base + mid + end
+        }
+        s.SCADValue = SCADClosure()
+        return s
+    }
+}
+
+extension OpenSCAD {
+    static func color(_ r: Double, _ g: Double, _ b: Double, _ a: Double, subjects: OpenSCAD...) -> OpenSCAD {
+        var s = OpenSCAD()
+        let SCADClosure: () -> String = {
+            let base = "color([\(r), \(g), \(b), \(a)]) {\n"
+            let end = "};"
+            var mid = ""
+            for subject in subjects {
+                mid += "    \(subject.SCADValue)\n"
+            }
+            return base + mid + end
+        }
+        s.SCADValue = SCADClosure()
+        return s
+    }
+    static func color(_ subjects: OpenSCAD..., to r: Double, _ g: Double, _ b: Double, _ a: Double) -> OpenSCAD {
+        var s = OpenSCAD()
+        let SCADClosure: () -> String = {
+            let base = "color([\(r), \(g), \(b), \(a)]) {\n"
+            let end = "};"
+            var mid = ""
+            for subject in subjects {
+                mid += "    \(subject.SCADValue)\n"
+            }
+            return base + mid + end
+        }
+        s.SCADValue = SCADClosure()
+        return s
+    }
+}
