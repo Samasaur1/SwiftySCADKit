@@ -9,11 +9,11 @@ import Foundation
 
 //MARK: - Scale
 
-extension OpenSCAD {
-    static func scale(_ dx: Double, _ dy: Double, _ dz: Double, subjects: OpenSCAD...) -> OpenSCAD {
+public extension OpenSCAD {
+    public static func scale(_ dx: Double, _ dy: Double, _ dz: Double, subjects: OpenSCAD...) -> OpenSCAD {
         return scale(dx, dy, dz, subjects: subjects)
     }
-    static func scale(_ subjects: OpenSCAD..., to dx: Double, _ dy: Double, _ dz: Double) -> OpenSCAD {
+    public static func scale(_ subjects: OpenSCAD..., to dx: Double, _ dy: Double, _ dz: Double) -> OpenSCAD {
         return scale(dx, dy, dz, subjects: subjects)
     }
     internal static func scale(_ dx: Double, _ dy: Double, _ dz: Double, subjects: [OpenSCAD]) -> OpenSCAD {
@@ -43,11 +43,11 @@ public func Scale(_ subjects: OpenSCAD..., to dx: Double, _ dy: Double, _ dz: Do
 
 //MARK: - Resize
 
-extension OpenSCAD {
-    static func resize(_ newx: Double, _ newy: Double, _ newz: Double, subjects: OpenSCAD...) -> OpenSCAD {
+public extension OpenSCAD {
+    public static func resize(_ newx: Double, _ newy: Double, _ newz: Double, subjects: OpenSCAD...) -> OpenSCAD {
         return resize(newx, newy, newz, subjects: subjects)
     }
-    static func resize(_ subjects: OpenSCAD..., to newx: Double, _ newy: Double, _ newz: Double) -> OpenSCAD {
+    public static func resize(_ subjects: OpenSCAD..., to newx: Double, _ newy: Double, _ newz: Double) -> OpenSCAD {
         return resize(newx, newy, newz, subjects: subjects)
     }
     internal static func resize(_ newx: Double, _ newy: Double, _ newz: Double, subjects: [OpenSCAD]) -> OpenSCAD {
@@ -77,11 +77,11 @@ public func Resize(_ subjects: OpenSCAD..., to newx: Double, _ newy: Double, _ n
 
 //Mark: - Rotate
 
-extension OpenSCAD {
-    static func rotate(_ dx: Double, _ dy: Double, _ dz: Double, subjects: OpenSCAD...) -> OpenSCAD {
+public extension OpenSCAD {
+    public static func rotate(_ dx: Double, _ dy: Double, _ dz: Double, subjects: OpenSCAD...) -> OpenSCAD {
         return rotate(dx, dy, dz, subjects: subjects)
     }
-    static func rotate(_ subjects: OpenSCAD..., by dx: Double, _ dy: Double, _ dz: Double) -> OpenSCAD {
+    public static func rotate(_ subjects: OpenSCAD..., by dx: Double, _ dy: Double, _ dz: Double) -> OpenSCAD {
         return rotate(dx, dy, dz, subjects: subjects)
     }
     internal static func rotate(_ dx: Double, _ dy: Double, _ dz: Double, subjects: [OpenSCAD]) -> OpenSCAD {
@@ -111,11 +111,11 @@ public func Rotate(_ subjects: OpenSCAD..., by dx: Double, _ dy: Double, _ dz: D
 
 //MARK: - Translate
 
-extension OpenSCAD {
-    static func translate(_ dx: Double, _ dy: Double, _ dz: Double, subjects: OpenSCAD...) -> OpenSCAD {
+public extension OpenSCAD {
+    public static func translate(_ dx: Double, _ dy: Double, _ dz: Double, subjects: OpenSCAD...) -> OpenSCAD {
         return translate(dx, dy, dz, subjects: subjects)
     }
-    static func translate(_ subjects: OpenSCAD..., by dx: Double, _ dy: Double, _ dz: Double) -> OpenSCAD {
+    public static func translate(_ subjects: OpenSCAD..., by dx: Double, _ dy: Double, _ dz: Double) -> OpenSCAD {
         return translate(dx, dy, dz, subjects: subjects)
     }
     internal static func translate(_ dx: Double, _ dy: Double, _ dz: Double, subjects: [OpenSCAD]) -> OpenSCAD {
@@ -145,11 +145,11 @@ public func Translate(_ subjects: OpenSCAD..., by dx: Double, _ dy: Double, _ dz
 
 //MARK: - Mirror
 
-extension OpenSCAD {
-    static func mirror(_ dx: Double, _ dy: Double, _ dz: Double, subjects: OpenSCAD...) -> OpenSCAD {
+public extension OpenSCAD {
+    public static func mirror(_ dx: Double, _ dy: Double, _ dz: Double, subjects: OpenSCAD...) -> OpenSCAD {
         return mirror(dx, dy, dz, subjects: subjects)
     }
-    static func mirror(_ subjects: OpenSCAD..., across dx: Double, _ dy: Double, _ dz: Double) -> OpenSCAD {
+    public static func mirror(_ subjects: OpenSCAD..., across dx: Double, _ dy: Double, _ dz: Double) -> OpenSCAD {
         return mirror(dx, dy, dz, subjects: subjects)
     }
     internal static func mirror(_ dx: Double, _ dy: Double, _ dz: Double, subjects: [OpenSCAD]) -> OpenSCAD {
@@ -179,11 +179,11 @@ public func Mirror(_ subjects: OpenSCAD..., across dx: Double, _ dy: Double, _ d
 
 //MARK: - Color
 
-extension OpenSCAD {
-    static func color(_ r: Double, _ g: Double, _ b: Double, _ a: Double, subjects: OpenSCAD...) -> OpenSCAD {
+public extension OpenSCAD {
+    public static func color(_ r: Double, _ g: Double, _ b: Double, _ a: Double, subjects: OpenSCAD...) -> OpenSCAD {
         return color(r, g, b, a, subjects: subjects)
     }
-    static func color(_ subjects: OpenSCAD..., to r: Double, _ g: Double, _ b: Double, _ a: Double) -> OpenSCAD {
+    public static func color(_ subjects: OpenSCAD..., to r: Double, _ g: Double, _ b: Double, _ a: Double) -> OpenSCAD {
         return color(r, g, b, a, subjects: subjects)
     }
     internal static func color(_ r: Double, _ g: Double, _ b: Double, _ a: Double, subjects: [OpenSCAD]) -> OpenSCAD {

@@ -9,18 +9,18 @@ import Foundation
 
 //MARK: - Cube / Rectangular Prism
 
-extension OpenSCAD {
-    static func cube(withSideLength sideLength: Double, centered: Bool) -> OpenSCAD {
+public extension OpenSCAD {
+    public static func cube(withSideLength sideLength: Double, centered: Bool) -> OpenSCAD {
         var s = OpenSCAD()
         s.SCADValue = "cube([\(sideLength), \(sideLength), \(sideLength)], \(centered));"
         return s
     }
-    static func cube(height: Double, width: Double, depth: Double, centered: Bool) -> OpenSCAD {
+    public static func cube(height: Double, width: Double, depth: Double, centered: Bool) -> OpenSCAD {
         var s = OpenSCAD()
         s.SCADValue = "cube([\(width), \(depth), \(height)], \(centered));"
         return s
     }
-    static func rectangularPrism(height: Double, width: Double, depth: Double, centered: Bool) -> OpenSCAD {
+    public static func rectangularPrism(height: Double, width: Double, depth: Double, centered: Bool) -> OpenSCAD {
         return cube(height:height, width:width, depth: depth, centered: centered)
     }
 }
@@ -40,8 +40,8 @@ public func RectangularPrism(height: Double, width: Double, depth: Double, cente
 
 //MARK: - Sphere
 
-extension OpenSCAD {
-    static func sphere(_ radius: Double) -> OpenSCAD {
+public extension OpenSCAD {
+    public static func sphere(_ radius: Double) -> OpenSCAD {
         var s = OpenSCAD()
         s.SCADValue = "sphere(\(radius), $fn=\(OPENSCAD_CONFIG.SPHERE_RESOLUTION));"
         return s
@@ -55,8 +55,8 @@ public func Sphere(_ radius: Double) -> OpenSCAD {
 
 //MARK: - Cylinder
 
-extension OpenSCAD {
-    static func cylinder(height: Double, topRadius: Double, bottomRadius: Double, centered: Bool) -> OpenSCAD {
+public extension OpenSCAD {
+    public static func cylinder(height: Double, topRadius: Double, bottomRadius: Double, centered: Bool) -> OpenSCAD {
         var s = OpenSCAD()
         s.SCADValue = "cylinder($fn = \(OPENSCAD_CONFIG.SPHERE_RESOLUTION), \(height), \(bottomRadius), \(topRadius), \(centered));"
         return s
@@ -70,7 +70,7 @@ public func Cylinder(height: Double, topRadius: Double, bottomRadius: Double, ce
 
 //MARK: - Polyhedron
 
-extension OpenSCAD {
+public extension OpenSCAD {
     public struct Point: Hashable {
         public var x: Double
         public var y: Double
@@ -87,7 +87,7 @@ extension OpenSCAD {
     public struct Face: Hashable {
         public var points: [Point]
     }
-    static func polyhedron(faces: [Face]) -> OpenSCAD {
+    public static func polyhedron(faces: [Face]) -> OpenSCAD {
         var points: [Point] = []
         for face in faces {
             for point in face.points {
@@ -118,7 +118,7 @@ extension OpenSCAD {
         s.SCADValue = SCADClosure()
         return s
     }
-    static func polyhedron(faces: Face...) -> OpenSCAD {
+    public static func polyhedron(faces: Face...) -> OpenSCAD {
         return polyhedron(faces: faces)
     }
 }
@@ -134,8 +134,8 @@ public func Polyhedron(faces: [OpenSCAD.Face]) -> OpenSCAD {
 
 //MARK: - Triangular Prism
 
-extension OpenSCAD {
-    static func triangularPrism(bottom: (a: Point, b: Point, c: Point), top: (a: Point, b: Point, c: Point)) -> OpenSCAD {
+public extension OpenSCAD {
+    public static func triangularPrism(bottom: (a: Point, b: Point, c: Point), top: (a: Point, b: Point, c: Point)) -> OpenSCAD {
         return polyhedron(faces: Face(points: [bottom.a, bottom.c, bottom.b]), Face(points: [top.a, top.b, top.c]), Face(points: [top.b, top.a, bottom.a, bottom.b]), Face(points: [top.a, top.c, bottom.c, bottom.a]), Face(points: [top.c, top.b, bottom.b, bottom.c]))
     }
 }
@@ -147,8 +147,8 @@ public func TriangularPrism(bottom: (a: OpenSCAD.Point, b: OpenSCAD.Point, c: Op
 
 //TODO: Global constructor functions that return polyhedrons.
 
-extension Array where Element: Equatable {
-    func removingDuplicates() -> [Element] {
+internal extension Array where Element: Equatable {
+    internal func removingDuplicates() -> [Element] {
         var buffer: [Iterator.Element] = []
         
         for element in self {
@@ -159,12 +159,12 @@ extension Array where Element: Equatable {
         
         return buffer
     }
-    mutating func removeDuplicates() {
+    internal mutating func removeDuplicates() {
         self = removingDuplicates()
     }
 }
-extension Array where Element: Hashable {
-    func removingDuplicates() -> [Element] {
+internal extension Array where Element: Hashable {
+    internal func removingDuplicates() -> [Element] {
         var buffer: [Iterator.Element] = []
         var lookup = Set<Iterator.Element>()
         
@@ -177,8 +177,7 @@ extension Array where Element: Hashable {
         
         return buffer
     }
-    
-    mutating func removeDuplicates() {
+    internal mutating func removeDuplicates() {
         self = removingDuplicates()
     }
 }

@@ -9,8 +9,8 @@ import Foundation
 
 //MARK: - Union
 
-extension OpenSCAD {
-    static func union(_ parent: OpenSCAD, _ children: OpenSCAD...) -> OpenSCAD {
+public extension OpenSCAD {
+    public static func union(_ parent: OpenSCAD, _ children: OpenSCAD...) -> OpenSCAD {
         return union(parent, children)
     }
     
@@ -29,7 +29,7 @@ extension OpenSCAD {
         return s
     }
     
-    static func + (lhs: OpenSCAD, rhs: OpenSCAD) -> OpenSCAD {
+    public static func + (lhs: OpenSCAD, rhs: OpenSCAD) -> OpenSCAD {
         return union(lhs, rhs)
     }
 }
@@ -41,8 +41,8 @@ public func Union(_ parent: OpenSCAD, _ children: OpenSCAD...) -> OpenSCAD {
 
 //MARK: - Union
 
-extension OpenSCAD {
-    static func difference(_ parent: OpenSCAD, _ children: OpenSCAD...) -> OpenSCAD {
+public extension OpenSCAD {
+    public static func difference(_ parent: OpenSCAD, _ children: OpenSCAD...) -> OpenSCAD {
         return difference(parent, children)
     }
     
@@ -61,7 +61,7 @@ extension OpenSCAD {
         return s
     }
     
-    static func - (lhs: OpenSCAD, rhs: OpenSCAD) -> OpenSCAD {
+    public static func - (lhs: OpenSCAD, rhs: OpenSCAD) -> OpenSCAD {
         return difference(lhs, rhs)
     }
 }
@@ -73,8 +73,8 @@ public func Difference(_ parent: OpenSCAD, _ children: OpenSCAD...) -> OpenSCAD 
 
 //MARK: - Intersection
 
-extension OpenSCAD {
-    static func intersection(_ parent: OpenSCAD, _ children: OpenSCAD...) -> OpenSCAD {
+public extension OpenSCAD {
+    public static func intersection(_ parent: OpenSCAD, _ children: OpenSCAD...) -> OpenSCAD {
         return intersection(parent, children)
     }
     
