@@ -30,6 +30,13 @@ public extension OpenSCAD {
         s.SCADValue = SCADClosure()
         return s
     }
+    
+    public func scaled(to dx: Double, _ dy: Double, _ dz: Double) -> OpenSCAD {
+        return OpenSCAD.scale(dx, dy, dz, subjects: [self])
+    }
+    public mutating func scale(to dx: Double, _ dy: Double, _ dz: Double) {
+        self = self.scaled(to: dx, dy, dz)
+    }
 }
 
 @available(*, deprecated, renamed: "OpenSCAD.scale")
@@ -63,6 +70,13 @@ public extension OpenSCAD {
         }
         s.SCADValue = SCADClosure()
         return s
+    }
+    
+    public func resized(to newx: Double, _ newy: Double, _ newz: Double) -> OpenSCAD {
+        return OpenSCAD.resize(newx, newy, newz, subjects: [self])
+    }
+    public mutating func resize(to newx: Double, _ newy: Double, _ newz: Double) {
+        self = self.resized(to: newx, newy, newz)
     }
 }
 
@@ -98,6 +112,13 @@ public extension OpenSCAD {
         s.SCADValue = SCADClosure()
         return s
     }
+    
+    public func rotated(by dx: Double, _ dy: Double, _ dz: Double) -> OpenSCAD {
+        return OpenSCAD.rotate(dx, dy, dz, subjects: [self])
+    }
+    public mutating func rotate(by dx: Double, _ dy: Double, _ dz: Double) {
+        self = self.rotated(by: dx, dy, dz)
+    }
 }
 
 @available(*, deprecated, renamed: "OpenSCAD.rotate")
@@ -131,6 +152,13 @@ public extension OpenSCAD {
         }
         s.SCADValue = SCADClosure()
         return s
+    }
+    
+    public func translated(by dx: Double, _ dy: Double, _ dz: Double) -> OpenSCAD {
+        return OpenSCAD.translate(dx, dy, dz, subjects: [self])
+    }
+    public mutating func translate(by dx: Double, _ dy: Double, _ dz: Double) {
+        self = self.translated(by: dx, dy, dz)
     }
 }
 
@@ -166,6 +194,13 @@ public extension OpenSCAD {
         s.SCADValue = SCADClosure()
         return s
     }
+    
+    public func mirrored(across dx: Double, _ dy: Double, _ dz: Double) -> OpenSCAD {
+        return OpenSCAD.mirror(dx, dy, dz, subjects: [self])
+    }
+    public mutating func mirror(across dx: Double, _ dy: Double, _ dz: Double) {
+        self = self.mirrored(across: dx, dy, dz)
+    }
 }
 
 @available(*, deprecated, renamed: "OpenSCAD.mirror")
@@ -199,6 +234,13 @@ public extension OpenSCAD {
         }
         s.SCADValue = SCADClosure()
         return s
+    }
+    
+    public func colored(to r: Double, _ g: Double, _ b: Double, _ a: Double) -> OpenSCAD {
+        return OpenSCAD.color(r, g, b, a, subjects: [self])
+    }
+    public mutating func color(to r: Double, _ g: Double, _ b: Double, _ a: Double) {
+        self = self.colored(to: r, g, b, a)
     }
 }
 
