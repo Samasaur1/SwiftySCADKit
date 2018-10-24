@@ -32,6 +32,16 @@ public extension OpenSCAD {
     public static func + (lhs: OpenSCAD, rhs: OpenSCAD) -> OpenSCAD {
         return union(lhs, rhs)
     }
+    
+    public func unioned(with subjects: OpenSCAD...) -> OpenSCAD {
+        return unioned(with: subjects)
+    }
+    public mutating func union(with subjects: OpenSCAD...) {
+        self = self.unioned(with: subjects)
+    }
+    internal func unioned(with subjects: [OpenSCAD]) -> OpenSCAD {
+        return OpenSCAD.union(self, subjects)
+    }
 }
 
 @available(*, deprecated, renamed: "OpenSCAD.union")
@@ -64,6 +74,19 @@ public extension OpenSCAD {
     public static func - (lhs: OpenSCAD, rhs: OpenSCAD) -> OpenSCAD {
         return difference(lhs, rhs)
     }
+    
+    public func differenced(from subject: OpenSCAD) -> OpenSCAD {
+        return OpenSCAD.difference(subject, [self])
+    }
+    public mutating func difference(from subject: OpenSCAD) {
+        self = self.differenced(from: subject)
+    }
+    public func subtracted(from subject: OpenSCAD) -> OpenSCAD {
+        return differenced(from: subject)
+    }
+    public mutating func subtract(from subject: OpenSCAD) {
+        difference(from: subject)
+    }
 }
 
 @available(*, deprecated, renamed: "OpenSCAD.difference")
@@ -91,6 +114,16 @@ public extension OpenSCAD {
         }
         s.SCADValue = SCADClosure()
         return s
+    }
+    
+    public func intersectioned(with subjects: OpenSCAD...) -> OpenSCAD {
+        return intersectioned(with: subjects)
+    }
+    public mutating func intersection(with subjects: OpenSCAD...) {
+        self = self.intersectioned(with: subjects)
+    }
+    internal func intersectioned(with subjects: [OpenSCAD]) -> OpenSCAD {
+        return OpenSCAD.intersection(self, subjects)
     }
 }
 
