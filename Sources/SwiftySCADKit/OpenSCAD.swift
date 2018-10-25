@@ -8,8 +8,11 @@ public struct OpenSCAD {
     }
 }
 
+/// A structure that represents configuration options.
 public struct Config {
+    /// The resolution of spheres (and other circular objects).
     public var SPHERE_RESOLUTION: Double = 50
 }
 
+/// The configuration for SwiftySCADKit.
 public var OPENSCAD_CONFIG: Config = Config()
