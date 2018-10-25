@@ -15,7 +15,6 @@ public extension OpenSCAD {
     }
     
     internal static func union(_ parent: OpenSCAD, _ children: [OpenSCAD]) -> OpenSCAD {
-        var s = OpenSCAD()
         let SCADClosure: () -> String = {
             let base = "union() {\n    \(parent.SCADValue)\n"
             let end = "};"
@@ -25,8 +24,7 @@ public extension OpenSCAD {
             }
             return base + mid + end
         }
-        s.SCADValue = SCADClosure()
-        return s
+        return OpenSCAD(SCADClosure())
     }
     
     public static func + (lhs: OpenSCAD, rhs: OpenSCAD) -> OpenSCAD {
@@ -57,7 +55,6 @@ public extension OpenSCAD {
     }
     
     internal static func difference(_ parent: OpenSCAD, _ children: [OpenSCAD]) -> OpenSCAD {
-        var s = OpenSCAD()
         let SCADClosure: () -> String = {
             let base = "difference() {\n    \(parent.SCADValue)\n"
             let end = "};"
@@ -67,8 +64,7 @@ public extension OpenSCAD {
             }
             return base + mid + end
         }
-        s.SCADValue = SCADClosure()
-        return s
+        return OpenSCAD(SCADClosure())
     }
     
     public static func - (lhs: OpenSCAD, rhs: OpenSCAD) -> OpenSCAD {
@@ -102,7 +98,6 @@ public extension OpenSCAD {
     }
     
     internal static func intersection(_ parent: OpenSCAD, _ children: [OpenSCAD]) -> OpenSCAD {
-        var s = OpenSCAD()
         let SCADClosure: () -> String = {
             let base = "intersection() {\n    \(parent.SCADValue)\n"
             let end = "};"
@@ -112,8 +107,7 @@ public extension OpenSCAD {
             }
             return base + mid + end
         }
-        s.SCADValue = SCADClosure()
-        return s
+        return OpenSCAD(SCADClosure())
     }
     
     public func intersectioned(with subjects: OpenSCAD...) -> OpenSCAD {

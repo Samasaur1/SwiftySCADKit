@@ -11,14 +11,10 @@ import Foundation
 
 public extension OpenSCAD {
     public static func cube(withSideLength sideLength: Double, centered: Bool) -> OpenSCAD {
-        var s = OpenSCAD()
-        s.SCADValue = "cube([\(sideLength), \(sideLength), \(sideLength)], \(centered));"
-        return s
+        return OpenSCAD("cube([\(sideLength), \(sideLength), \(sideLength)], \(centered));")
     }
     public static func cube(height: Double, width: Double, depth: Double, centered: Bool) -> OpenSCAD {
-        var s = OpenSCAD()
-        s.SCADValue = "cube([\(width), \(depth), \(height)], \(centered));"
-        return s
+        return OpenSCAD("cube([\(width), \(depth), \(height)], \(centered));")
     }
     public static func rectangularPrism(height: Double, width: Double, depth: Double, centered: Bool) -> OpenSCAD {
         return cube(height:height, width:width, depth: depth, centered: centered)
@@ -42,9 +38,7 @@ public func RectangularPrism(height: Double, width: Double, depth: Double, cente
 
 public extension OpenSCAD {
     public static func sphere(_ radius: Double) -> OpenSCAD {
-        var s = OpenSCAD()
-        s.SCADValue = "sphere(\(radius), $fn=\(OPENSCAD_CONFIG.SPHERE_RESOLUTION));"
-        return s
+        return OpenSCAD("sphere(\(radius), $fn=\(OPENSCAD_CONFIG.SPHERE_RESOLUTION));")
     }
 }
 
@@ -57,9 +51,7 @@ public func Sphere(_ radius: Double) -> OpenSCAD {
 
 public extension OpenSCAD {
     public static func cylinder(height: Double, topRadius: Double, bottomRadius: Double, centered: Bool) -> OpenSCAD {
-        var s = OpenSCAD()
-        s.SCADValue = "cylinder($fn = \(OPENSCAD_CONFIG.SPHERE_RESOLUTION), \(height), \(bottomRadius), \(topRadius), \(centered));"
-        return s
+        return OpenSCAD("cylinder($fn = \(OPENSCAD_CONFIG.SPHERE_RESOLUTION), \(height), \(bottomRadius), \(topRadius), \(centered));")
     }
 }
 
@@ -96,7 +88,6 @@ public extension OpenSCAD {
         }
         points.removeDuplicates()
         
-        var s = OpenSCAD()
         let SCADClosure: () -> String = {
             var str = "polyhedron(\n    points = [\n        "
             for p in points {
@@ -115,8 +106,7 @@ public extension OpenSCAD {
             str += "\n    ],\nconvexity = 10);"
             return str
         }
-        s.SCADValue = SCADClosure()
-        return s
+        return OpenSCAD(SCADClosure())
     }
     public static func polyhedron(faces: Face...) -> OpenSCAD {
         return polyhedron(faces: faces)

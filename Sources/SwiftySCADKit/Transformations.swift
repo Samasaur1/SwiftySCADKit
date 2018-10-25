@@ -17,7 +17,6 @@ public extension OpenSCAD {
         return scale(dx, dy, dz, subjects: subjects)
     }
     internal static func scale(_ dx: Double, _ dy: Double, _ dz: Double, subjects: [OpenSCAD]) -> OpenSCAD {
-        var s = OpenSCAD()
         let SCADClosure: () -> String = {
             let base = "scale([\(dx), \(dy), \(dz)]) {\n"
             let end = "};"
@@ -27,8 +26,7 @@ public extension OpenSCAD {
             }
             return base + mid + end
         }
-        s.SCADValue = SCADClosure()
-        return s
+        return OpenSCAD(SCADClosure())
     }
     
     public func scaled(to dx: Double, _ dy: Double, _ dz: Double) -> OpenSCAD {
@@ -58,7 +56,6 @@ public extension OpenSCAD {
         return resize(newx, newy, newz, subjects: subjects)
     }
     internal static func resize(_ newx: Double, _ newy: Double, _ newz: Double, subjects: [OpenSCAD]) -> OpenSCAD {
-        var s = OpenSCAD()
         let SCADClosure: () -> String = {
             let base = "resize([\(newx), \(newy), \(newz)]) {\n"
             let end = "};"
@@ -68,8 +65,7 @@ public extension OpenSCAD {
             }
             return base + mid + end
         }
-        s.SCADValue = SCADClosure()
-        return s
+        return OpenSCAD(SCADClosure())
     }
     
     public func resized(to newx: Double, _ newy: Double, _ newz: Double) -> OpenSCAD {
@@ -99,7 +95,6 @@ public extension OpenSCAD {
         return rotate(dx, dy, dz, subjects: subjects)
     }
     internal static func rotate(_ dx: Double, _ dy: Double, _ dz: Double, subjects: [OpenSCAD]) -> OpenSCAD {
-        var s = OpenSCAD()
         let SCADClosure: () -> String = {
             let base = "rotate([\(dx), \(dy), \(dz)]) {\n"
             let end = "};"
@@ -109,8 +104,7 @@ public extension OpenSCAD {
             }
             return base + mid + end
         }
-        s.SCADValue = SCADClosure()
-        return s
+        return OpenSCAD(SCADClosure())
     }
     
     public func rotated(by dx: Double, _ dy: Double, _ dz: Double) -> OpenSCAD {
@@ -140,7 +134,6 @@ public extension OpenSCAD {
         return translate(dx, dy, dz, subjects: subjects)
     }
     internal static func translate(_ dx: Double, _ dy: Double, _ dz: Double, subjects: [OpenSCAD]) -> OpenSCAD {
-        var s = OpenSCAD()
         let SCADClosure: () -> String = {
             let base = "translate([\(dx), \(dy), \(dz)]) {\n"
             let end = "};"
@@ -150,8 +143,7 @@ public extension OpenSCAD {
             }
             return base + mid + end
         }
-        s.SCADValue = SCADClosure()
-        return s
+        return OpenSCAD(SCADClosure())
     }
     
     public func translated(by dx: Double, _ dy: Double, _ dz: Double) -> OpenSCAD {
@@ -181,7 +173,6 @@ public extension OpenSCAD {
         return mirror(dx, dy, dz, subjects: subjects)
     }
     internal static func mirror(_ dx: Double, _ dy: Double, _ dz: Double, subjects: [OpenSCAD]) -> OpenSCAD {
-        var s = OpenSCAD()
         let SCADClosure: () -> String = {
             let base = "mirror([\(dx), \(dy), \(dz)]) {\n"
             let end = "};"
@@ -191,8 +182,7 @@ public extension OpenSCAD {
             }
             return base + mid + end
         }
-        s.SCADValue = SCADClosure()
-        return s
+        return OpenSCAD(SCADClosure())
     }
     
     public func mirrored(across dx: Double, _ dy: Double, _ dz: Double) -> OpenSCAD {
@@ -222,7 +212,6 @@ public extension OpenSCAD {
         return color(r, g, b, a, subjects: subjects)
     }
     internal static func color(_ r: Double, _ g: Double, _ b: Double, _ a: Double, subjects: [OpenSCAD]) -> OpenSCAD {
-        var s = OpenSCAD()
         let SCADClosure: () -> String = {
             let base = "color([\(r), \(g), \(b), \(a)]) {\n"
             let end = "};"
@@ -232,8 +221,7 @@ public extension OpenSCAD {
             }
             return base + mid + end
         }
-        s.SCADValue = SCADClosure()
-        return s
+        return OpenSCAD(SCADClosure())
     }
     
     public func colored(to r: Double, _ g: Double, _ b: Double, _ a: Double) -> OpenSCAD {

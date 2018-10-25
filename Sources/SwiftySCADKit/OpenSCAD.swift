@@ -2,7 +2,7 @@ import Foundation
 
 public struct OpenSCAD {
     public var SCADValue: String = ""
-    internal init() {}
+    private init() {}
     public init(_ SCAD: String) {
         SCADValue = SCAD
     }
