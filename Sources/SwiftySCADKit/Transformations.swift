@@ -75,6 +75,7 @@ public extension OpenSCAD {
 }
 
 @available(*, deprecated, renamed: "OpenSCAD.scale")
+/// **DEPRECATED**: Use `OpenSCAD.color(_:_:_:subjects:)` instead.
 /// Creates a scaled version of the passed subjects.
 ///
 /// - Parameters:
@@ -87,6 +88,7 @@ public func Scale(_ dx: Double, _ dy: Double, _ dz: Double, subjects: OpenSCAD..
     return OpenSCAD.scale(dx, dy, dz, subjects: subjects)
 }
 @available(*, deprecated, renamed: "OpenSCAD.scale")
+/// **DEPRECATED**: Use `OpenSCAD.color(_:to:_:_:)` instead.
 /// Creates a scaled version of the passed subjects.
 ///
 /// - Parameters:
@@ -167,6 +169,7 @@ public extension OpenSCAD {
 }
 
 @available(*, deprecated, renamed: "OpenSCAD.resize")
+/// **DEPRECATED**: Use `OpenSCAD.color(_:_:_:subjects:)` instead.
 /// Creates a resized version of the passed subjects.
 ///
 /// - Parameters:
@@ -179,6 +182,7 @@ public func Resize(_ newx: Double, _ newy: Double, _ newz: Double, subjects: Ope
     return OpenSCAD.resize(newx, newy, newz, subjects: subjects)
 }
 @available(*, deprecated, renamed: "OpenSCAD.resize")
+/// **DEPRECATED**: Use `OpenSCAD.color(_:to:_:_:)` instead.
 /// Creates a resized version of the passed subjects.
 ///
 /// - Parameters:
@@ -259,6 +263,7 @@ public extension OpenSCAD {
 }
 
 @available(*, deprecated, renamed: "OpenSCAD.rotate")
+/// **DEPRECATED**: Use `OpenSCAD.color(_:_:_:subjects:)` instead.
 /// Creates a rotated version of the passed subjects.
 ///
 /// - Parameters:
@@ -271,6 +276,7 @@ public func Rotate(_ dx: Double, _ dy: Double, _ dz: Double, subjects: OpenSCAD.
     return OpenSCAD.rotate(dx, dy, dz, subjects: subjects)
 }
 @available(*, deprecated, renamed: "OpenSCAD.rotate")
+/// **DEPRECATED**: Use `OpenSCAD.color(_:by:_:_:)` instead.
 /// Creates a rotated version of the passed subjects.
 ///
 /// - Parameters:
@@ -351,6 +357,7 @@ public extension OpenSCAD {
 }
 
 @available(*, deprecated, renamed: "OpenSCAD.translate")
+/// **DEPRECATED**: Use `OpenSCAD.color(_:_:_:subjects:)` instead.
 /// Creates a translated version of the passed subjects.
 ///
 /// - Parameters:
@@ -363,6 +370,7 @@ public func Translate(_ dx: Double, _ dy: Double, _ dz: Double, subjects: OpenSC
     return OpenSCAD.translate(dx, dy, dz, subjects: subjects)
 }
 @available(*, deprecated, renamed: "OpenSCAD.translate")
+/// **DEPRECATED**: Use `OpenSCAD.color(_:by:_:_:)` instead.
 /// Creates a translated version of the passed subjects.
 ///
 /// - Parameters:
@@ -443,6 +451,7 @@ public extension OpenSCAD {
 }
 
 @available(*, deprecated, renamed: "OpenSCAD.mirror")
+/// **DEPRECATED**: Use `OpenSCAD.color(_:_:_:subjects:)` instead.
 /// Creates a mirrored version of the passed subjects.
 ///
 /// - Parameters:
@@ -455,6 +464,7 @@ public func Mirror(_ dx: Double, _ dy: Double, _ dz: Double, subjects: OpenSCAD.
     return OpenSCAD.mirror(dx, dy, dz, subjects: subjects)
 }
 @available(*, deprecated, renamed: "OpenSCAD.mirror")
+/// **DEPRECATED**: Use `OpenSCAD.color(_:across:_:_:)` instead.
 /// Creates a mirrored version of the passed subjects.
 ///
 /// - Parameters:
@@ -541,6 +551,7 @@ public extension OpenSCAD {
 
 
 @available(*, deprecated, renamed: "OpenSCAD.color")
+/// **DEPRECATED**: Use `OpenSCAD.color(_:_:_:_:subjects:)` instead.
 /// Creates a colored version of the passed subjects.
 ///
 /// - Parameters:
@@ -554,6 +565,7 @@ public func Color(_ r: Double, _ g: Double, _ b: Double, _ a: Double, subjects: 
     return OpenSCAD.color(r, g, b, a, subjects: subjects)
 }
 @available(*, deprecated, renamed: "OpenSCAD.color")
+/// **DEPRECATED**: Use `OpenSCAD.color(_:to:_:_:_:)` instead.
 /// Creates a colored version of the passed subjects.
 ///
 /// - Parameters:
