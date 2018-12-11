@@ -254,7 +254,7 @@ public func Polyhedron(faces: [OpenSCAD.Face]) -> OpenSCAD {
 public extension OpenSCAD {
     /// Creates a triangular prism from the given faces.
     ///
-    /// This function accepts two tuples of three points each. Corresponding points are considered to be aobve/below each other. This knowledge allows you to create twisted triangular prisms.
+    /// This function accepts two tuples of three points each. Corresponding points are considered to be above/below each other. This knowledge allows you to create twisted triangular prisms.
     ///
     /// Like with cylinders, you can make the top/bottom bigger/smaller than the other face. The results in a tapered triangular prism. If all the points in one side are in fact the same point, then you will recieve a triangular pyramid.
     ///
@@ -284,6 +284,16 @@ public func TriangularPrism(bottom: (a: OpenSCAD.Point, b: OpenSCAD.Point, c: Op
 }
 
 public extension OpenSCAD {
+    /// Creates a hexahedron for the given faces.
+    ///
+    /// This function accepts two tuples of four points each. Corresponding points are considered to be above/below each other. This knowledge allows you to create twisted hexahedrons.
+    ///
+    /// Like with cylinders, you can make the top/bottom bigger/smaller than the other face. The results in a tapered hexahedron If all the points in one side are in fact the same point, then you will recieve a square pyramid.
+    ///
+    /// - Parameters:
+    ///   - bottom: The bottom four points.
+    ///   - top: The top four points.
+    /// - Returns: A hexahedron created from the given points.
     public static func hexahedron(bottom: (a: Point, b: Point, c: Point, d: Point), top: (a: Point, b: Point, c: Point, d: Point)) -> OpenSCAD {
         return polyhedron(faces: Face(points: top.a, top.b, top.c, top.d), Face(points: top.a, top.d, bottom.d, bottom.a), Face(points: top.b, top.a, bottom.a, bottom.b), Face(points: top.c, top.b, bottom.b, bottom.c), Face(points: top.d, top.c, bottom.c, bottom.d), Face(points: bottom.a, bottom.d, bottom.c, bottom.b))
     }
