@@ -181,6 +181,12 @@ public extension OpenSCAD {
     /// A representation of a face of a polyhedron.
     public struct Face: Hashable {
         public var points: [Point]
+        public init(points: [Point]) {
+            self.points = points
+        }
+        public init(points: Point...) {
+            self.init(points: points)
+        }
     }
     /// Creates a polyhedron from an array of `Face`s that bound it.
     ///
@@ -275,6 +281,12 @@ public extension OpenSCAD {
 /// - Returns: A triangular prism created from the given points.
 public func TriangularPrism(bottom: (a: OpenSCAD.Point, b: OpenSCAD.Point, c: OpenSCAD.Point), top: (a: OpenSCAD.Point, b: OpenSCAD.Point, c: OpenSCAD.Point)) -> OpenSCAD {
     return OpenSCAD.triangularPrism(bottom: bottom, top: top)
+}
+
+public extension OpenSCAD {
+    public static func hexahedron(bottom: (a: Point, b: Point, c: Point, d: Point), top: (a: Point, b: Point, c: Point, d: Point)) -> OpenSCAD {
+        return polyhedron(faces: Face(points: top.a, top.b, top.c, top.d), Face(points: top.a, top.d, bottom.d, bottom.a), Face(points: top.b, top.a, bottom.a, bottom.b), Face(points: top.c, top.b, bottom.b, bottom.c), Face(points: top.d, top.c, bottom.c, bottom.d), Face(points: bottom.a, bottom.d, bottom.c, bottom.b))
+    }
 }
 
 //TODO: Global constructor functions that return polyhedrons.
