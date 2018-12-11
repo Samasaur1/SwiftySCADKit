@@ -7,8 +7,6 @@ os:
 osx_image: xcode10
 
 env:
-- SWIFT_VERSION=4.0
-- SWIFT_VERSION=4.1
 - SWIFT_VERSION=4.2
 
 install:
