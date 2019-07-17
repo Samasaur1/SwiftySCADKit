@@ -31,3 +31,32 @@ public struct Config {
 
 /// The configuration for SwiftySCADKit.
 public var OPENSCAD_CONFIG: Config = Config()
+
+public func OPENSCAD_copyToClipboard(_ scad: OpenSCAD) {
+    let pipe = Pipe()
+    let echo = Process()
+    echo.launchPath = "/bin/echo"
+    echo.arguments = ["-n", "\(scad.SCADValue)"]
+    echo.standardOutput = pipe
+    echo.launch()
+    let pbcopy = Process()
+    pbcopy.launchPath = "/usr/bin/pbcopy"
+    pbcopy.standardInput = pipe
+    pbcopy.launch()
+    pbcopy.waitUntilExit()
+}
+public func OPENSCAD_print(_ scad: OpenSCAD) {
+    print(scad.SCADValue)
+}
+public func OPENSCAD_openInEditor(_ scad: OpenSCAD) {
+    OPENSCAD_copyToClipboard(scad)
+    NSAppleScript(source: """
+tell application "OpenSCAD" to activate
+tell application "System Events"
+    keystroke "n" using command down
+    keystroke "a" using command down
+    keystroke "v" using command down
+    key code 96
+end tell
+""")!.executeAndReturnError(nil)
+}
