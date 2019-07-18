@@ -52,10 +52,14 @@ public func OPENSCAD_openInEditor(_ scad: OpenSCAD) {
     OPENSCAD_copyToClipboard(scad)
     NSAppleScript(source: """
 tell application "OpenSCAD" to activate
+delay 1
 tell application "System Events"
     keystroke "n" using command down
+    delay 0.3
     keystroke "a" using command down
+    delay 0.1
     keystroke "v" using command down
+    delay 0.1
     key code 96
 end tell
 """)!.executeAndReturnError(nil)
