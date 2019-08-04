@@ -48,6 +48,7 @@ public func OPENSCAD_copyToClipboard(_ scad: OpenSCAD) {
 public func OPENSCAD_print(_ scad: OpenSCAD) {
     print(scad.SCADValue)
 }
+#if os(macOS)
 public func OPENSCAD_openInEditor(_ scad: OpenSCAD) {
     OPENSCAD_copyToClipboard(scad)
     NSAppleScript(source: """
@@ -64,3 +65,4 @@ tell application "System Events"
 end tell
 """)!.executeAndReturnError(nil)
 }
+#endif
