@@ -27,6 +27,7 @@ public struct OpenSCAD {
 public struct Config {
     /// The resolution of spheres (and other circular objects).
     public var SPHERE_RESOLUTION: Double = 50
+    public var IMPORT_CONVEXITY: Int = 5
 }
 
 /// The configuration for SwiftySCADKit.
