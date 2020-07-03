@@ -204,7 +204,7 @@ public struct Cube: OpenSCAD {
     }
 
     public var scad: SCAD {
-        .cube(height: height, width: width, depth: depth, centered: true)
+        .cube(height: height, width: width, depth: depth, centered: centered)
     }
 }
 /// Creates a rectangular prism with the specified height, width, and depth.
