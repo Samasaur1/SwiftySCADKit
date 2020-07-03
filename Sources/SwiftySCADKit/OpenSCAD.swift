@@ -204,7 +204,7 @@ public struct TupleSCAD3<T1: OpenSCAD, T2: OpenSCAD, T3: OpenSCAD>: TupleSCAD {
     }
 
     public var scad: SCAD {
-        .list(content: [value1.scad, value2.scad])
+        .list(content: [value1.scad, value2.scad, value3.scad])
     }
 }
 public struct TupleSCAD4<T1: OpenSCAD, T2: OpenSCAD, T3: OpenSCAD, T4: OpenSCAD>: TupleSCAD {
@@ -223,7 +223,7 @@ public struct TupleSCAD4<T1: OpenSCAD, T2: OpenSCAD, T3: OpenSCAD, T4: OpenSCAD>
     }
 
     public var scad: SCAD {
-        .list(content: [value1.scad, value2.scad])
+        .list(content: [value1.scad, value2.scad, value3.scad, value4.scad])
     }
 }
 public struct TupleSCAD5<T1: OpenSCAD, T2: OpenSCAD, T3: OpenSCAD, T4: OpenSCAD, T5: OpenSCAD>: TupleSCAD {
@@ -244,7 +244,7 @@ public struct TupleSCAD5<T1: OpenSCAD, T2: OpenSCAD, T3: OpenSCAD, T4: OpenSCAD,
     }
 
     public var scad: SCAD {
-        .list(content: [value1.scad, value2.scad])
+        .list(content: [value1.scad, value2.scad, value3.scad, value4.scad, value5.scad])
     }
 }
 
