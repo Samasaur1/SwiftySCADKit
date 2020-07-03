@@ -262,6 +262,10 @@ public struct Cylinder: OpenSCAD {
         self.bottomRadius = bottomRadius
         self.centered = centered
     }
+
+    public var scad: SCAD {
+        .cylinder(height: height, topRadius: topRadius, bottomRadius: bottomRadius, centered: centered)
+    }
 }
 
 public struct Polyhedron: OpenSCAD {
@@ -319,6 +323,10 @@ public struct Polyhedron: OpenSCAD {
     /// - Parameter faces: The faces of the polyhedron.
     public init(faces: Face...) {
         self.init(faces: faces)
+    }
+
+    public var scad: SCAD {
+        .polyhedron(faces: faces)
     }
 }
 
