@@ -499,9 +499,67 @@ public struct TupleSCAD2<T1: OpenSCAD, T2: OpenSCAD>: TupleSCAD {
 
     let value1: T1
     let value2: T2
-    public init(_ value1: T1, _ value2: T2) {
-      self.value1 = value1
-      self.value2 = value2
+
+    init(_ v1: T1, _ v2: T2) {
+        value1 = v1
+        value2 = v2
+    }
+
+    public var scad: SCAD {
+        .list(content: [value1.scad, value2.scad])
+    }
+}
+public struct TupleSCAD3<T1: OpenSCAD, T2: OpenSCAD, T3: OpenSCAD>: TupleSCAD {
+    public var body: Never { return fatalError() }
+
+    let value1: T1
+    let value2: T2
+    let value3: T3
+
+    init(_ v1: T1, _ v2: T2, _ v3: T3) {
+        value1 = v1
+        value2 = v2
+        value3 = v3
+    }
+
+    public var scad: SCAD {
+        .list(content: [value1.scad, value2.scad])
+    }
+}
+public struct TupleSCAD4<T1: OpenSCAD, T2: OpenSCAD, T3: OpenSCAD, T4: OpenSCAD>: TupleSCAD {
+    public var body: Never { return fatalError() }
+
+    let value1: T1
+    let value2: T2
+    let value3: T3
+    let value4: T4
+
+    init(_ v1: T1, _ v2: T2, _ v3: T3, _ v4: T4) {
+        value1 = v1
+        value2 = v2
+        value3 = v3
+        value4 = v4
+    }
+
+    public var scad: SCAD {
+        .list(content: [value1.scad, value2.scad])
+    }
+}
+public struct TupleSCAD5<T1: OpenSCAD, T2: OpenSCAD, T3: OpenSCAD, T4: OpenSCAD, T5: OpenSCAD>: TupleSCAD {
+    public var body: Never { return fatalError() }
+
+    let value1: T1
+    let value2: T2
+    let value3: T3
+    let value4: T4
+    let value5: T5
+
+    init(_ v1: T1, _ v2: T2, _ v3: T3, _ v4: T4, _ v5: T5) {
+        value1 = v1
+        value2 = v2
+        value3 = v3
+        value4 = v4
+        value5 = v5
     }
 
     public var scad: SCAD {
@@ -511,20 +569,32 @@ public struct TupleSCAD2<T1: OpenSCAD, T2: OpenSCAD>: TupleSCAD {
 
 @_functionBuilder
 public struct SCADBuilder {
-    static func buildBlock() -> Literal {
+    public static func buildBlock() -> Literal {
         return Literal("")
     }
 
-    static func buildBlock<Content: OpenSCAD>(_ content: Content) -> Content {
+    public static func buildBlock<Content: OpenSCAD>(_ content: Content) -> Content {
         return content
     }
 
-    static func buildBlock<C0: OpenSCAD, C1: OpenSCAD>(_ c0: C0, _ c1: C1) -> TupleSCAD2<C0, C1> {
+    public static func buildBlock(_ string: String) -> Literal {
+        return Literal(string)
+    }
+
+    public static func buildBlock<C0: OpenSCAD, C1: OpenSCAD>(_ c0: C0, _ c1: C1) -> TupleSCAD2<C0, C1> {
         return TupleSCAD2(c0, c1)
     }
 
-    static func buildBlock(_ string: String) -> Literal {
-        return Literal(string)
+    public static func buildBlock<C0: OpenSCAD, C1: OpenSCAD, C2: OpenSCAD>(_ c0: C0, _ c1: C1, _ c2: C2) -> TupleSCAD3<C0, C1, C2> {
+        return TupleSCAD3(c0, c1, c2)
+    }
+
+    public static func buildBlock<C0: OpenSCAD, C1: OpenSCAD, C2: OpenSCAD, C3: OpenSCAD>(_ c0: C0, _ c1: C1, _ c2: C2, _ c3: C3) -> TupleSCAD4<C0, C1, C2, C3> {
+        return TupleSCAD4(c0, c1, c2, c3)
+    }
+
+    public static func buildBlock<C0: OpenSCAD, C1: OpenSCAD, C2: OpenSCAD, C3: OpenSCAD, C4: OpenSCAD>(_ c0: C0, _ c1: C1, _ c2: C2, _ c3: C3, _ c4: C4) -> TupleSCAD5<C0, C1, C2, C3, C4> {
+        return TupleSCAD5(c0, c1, c2, c3, c4)
     }
 }
 
