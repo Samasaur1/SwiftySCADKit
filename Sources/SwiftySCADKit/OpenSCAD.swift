@@ -336,6 +336,20 @@ public func TriangularPrism(bottom: (a: Polyhedron.Point, b: Polyhedron.Point, c
     return Polyhedron(faces: Polyhedron.Face(points: [bottom.a, bottom.c, bottom.b]), Polyhedron.Face(points: [top.a, top.b, top.c]), Polyhedron.Face(points: [top.b, top.a, bottom.a, bottom.b]), Polyhedron.Face(points: [top.a, top.c, bottom.c, bottom.a]), Polyhedron.Face(points: [top.c, top.b, bottom.b, bottom.c]))
 }
 
+/// Creates a hexahedron for the given faces.
+///
+/// This function accepts two tuples of four points each. Corresponding points are considered to be above/below each other. This knowledge allows you to create twisted hexahedrons.
+///
+/// Like with cylinders, you can make the top/bottom bigger/smaller than the other face. The results in a tapered hexahedron If all the points in one side are in fact the same point, then you will recieve a square pyramid.
+///
+/// - Parameters:
+///   - bottom: The bottom four points.
+///   - top: The top four points.
+/// - Returns: A hexahedron created from the given points.
+public func Hexahedron(bottom: (a: Polyhedron.Point, b: Polyhedron.Point, c: Polyhedron.Point, d: Polyhedron.Point), top: (a: Polyhedron.Point, b: Polyhedron.Point, c: Polyhedron.Point, d: Polyhedron.Point)) -> some OpenSCAD {
+    return Polyhedron(faces: Polyhedron.Face(points: top.a, top.b, top.c, top.d), Polyhedron.Face(points: top.a, top.d, bottom.d, bottom.a), Polyhedron.Face(points: top.b, top.a, bottom.a, bottom.b), Polyhedron.Face(points: top.c, top.b, bottom.b, bottom.c), Polyhedron.Face(points: top.d, top.c, bottom.c, bottom.d), Polyhedron.Face(points: bottom.a, bottom.d, bottom.c, bottom.b))
+}
+
 public struct Union<Content: OpenSCAD>: OpenSCAD {
     public var body: Never { return fatalError() }
     let content: Content
