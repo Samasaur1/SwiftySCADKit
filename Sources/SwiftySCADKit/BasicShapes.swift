@@ -45,7 +45,7 @@ public extension OpenSCAD {
 
 @available(*, deprecated, renamed: "OpenSCAD.cube")
 /// **DEPRECATED**: Use `OpenSCAD.cube(withSideLength:centered:)` instead.
-/// Creates a cube with the gievn side length.
+/// Creates a cube with the given side length.
 ///
 /// - Parameters:
 ///   - sideLength: The length of each side of the cube.

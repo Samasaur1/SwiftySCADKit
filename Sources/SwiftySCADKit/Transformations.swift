@@ -195,7 +195,7 @@ public func Resize(_ subjects: OpenSCAD..., to newx: Double, _ newy: Double, _ n
     return OpenSCAD.resize(newx, newy, newz, subjects: subjects)
 }
 
-//Mark: - Rotate
+//MARK: - Rotate
 
 public extension OpenSCAD {
     /// Creates a rotated version of the passed subjects.
