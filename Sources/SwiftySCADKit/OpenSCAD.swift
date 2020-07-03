@@ -349,12 +349,12 @@ public struct Union<Content: OpenSCAD>: OpenSCAD {
     }
 }
 
-public struct Difference<Content: OpenSCAD>: OpenSCAD {
+public struct Difference<ParentContent: OpenSCAD, ChildContent: OpenSCAD>: OpenSCAD {
     public var body: Never { return fatalError() }
-    let parent: Content
-    let children: Content
+    let parent: ParentContent
+    let children: ChildContent
 
-    public init(@SCADBuilder parent: () -> Content, children: () -> Content) {
+    public init(@SCADBuilder parent: () -> ParentContent, children: () -> ChildContent) {
         self.parent = parent()
         self.children = children()
     }
