@@ -98,6 +98,69 @@ indirect enum SKAD {
     case color(r: Double, g: Double, b: Double, a: Double, content: SKAD)
 }
 
+func parse(skad: SKAD) -> String {
+    switch skad {
+    case .literal(let str): return str
+    case .list(let content):
+        return content.map { parse(skad: $0) }.joined(separator: "\n")
+    case .union(let content):
+        return """
+        union() {
+        \(parse(skad: content).split(separator: "\n").map { "    " + $0 }.joined(separator: "\n"))
+        }
+        """
+    case .difference(let parent, let children):
+        return """
+        difference() {
+        \(parse(skad: parent).split(separator: "\n").map { "    " + $0 }.joined(separator: "\n"))
+        \(parse(skad: children).split(separator: "\n").map { "    " + $0 }.joined(separator: "\n"))
+        }
+        """
+    case .intersection(let content):
+        return """
+        intersection() {
+        \(parse(skad: content).split(separator: "\n").map { "    " + $0 }.joined(separator: "\n"))
+        }
+        """
+    case let .scale(x, y, z, content):
+        return """
+        scale([\(x), \(y), \(z)]) {
+        \(parse(skad: content).split(separator: "\n").map { "    " + $0 }.joined(separator: "\n"))
+        }
+        """
+    case let .resize(x, y, z, content):
+        return """
+        resize([\(x), \(y), \(z)]) {
+        \(parse(skad: content).split(separator: "\n").map { "    " + $0 }.joined(separator: "\n"))
+        }
+        """
+    case let .rotate(x, y, z, content):
+        return """
+        rotate([\(x), \(y), \(z)]) {
+        \(parse(skad: content).split(separator: "\n").map { "    " + $0 }.joined(separator: "\n"))
+        }
+        """
+    case let .translation(x, y, z, content):
+        return """
+        translate([\(x), \(y), \(z)]) {
+        \(parse(skad: content).split(separator: "\n").map { "    " + $0 }.joined(separator: "\n"))
+        }
+        """
+    case let .mirror(x, y, z, content):
+        return """
+        mirror([\(x), \(y), \(z)]) {
+        \(parse(skad: content).split(separator: "\n").map { "    " + $0 }.joined(separator: "\n"))
+        }
+        """
+    case let .color(r, g, b, a, content):
+        return """
+        color([\(r), \(g), \(b), \(a)]) {
+        \(parse(skad: content).split(separator: "\n").map { "    " + $0 }.joined(separator: "\n"))
+        }
+        """
+    }
+}
+
 protocol SCAD {
     associatedtype Content: SCAD
 
