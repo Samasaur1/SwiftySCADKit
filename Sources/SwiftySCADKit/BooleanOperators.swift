@@ -1,94 +1,94 @@
 import Foundation
 
-public struct Union<Content: OpenSCAD>: OpenSCAD {
-    public var body: Never { return fatalError() }
-    let content: Content
+public struct Union: OpenSCAD, BaseOpenSCAD {
+    public var body: OpenSCAD { fatalError() }
+    let content: OpenSCAD
 
-    public init(@SCADBuilder content: () -> Content) {
+    public init(@SCADBuilder content: () -> OpenSCAD) {
         self.content = content()
     }
 
-    fileprivate init(content: Content) {
+    fileprivate init(content: OpenSCAD) {
         self.content = content
     }
 
-    public var scad: SCAD {
-        .union(content: content.scad)
+    var scad: SCAD {
+        .union(content: skad(of: content))
     }
 }
 
 public extension OpenSCAD {
-    func unioned<Content: OpenSCAD>(@SCADBuilder with content: () -> Content) -> some OpenSCAD {
+    func unioned(@SCADBuilder with content: () -> OpenSCAD) -> some OpenSCAD {
         unioned(with: content())
     }
 
-    func unioned<Content: OpenSCAD>(with content: Content) -> some OpenSCAD {
+    func unioned(with content: OpenSCAD) -> some OpenSCAD {
 //        Union {
 //            self
 //            content
 //        }
-        Union(content: TupleSCAD2(self, content))
+        Union(content: SCADList(list: [self, content]))
     }
 }
 
-public struct Difference<ParentContent: OpenSCAD, ChildContent: OpenSCAD>: OpenSCAD {
-    internal init(parent: ParentContent, children: ChildContent) {
+public struct Difference: OpenSCAD, BaseOpenSCAD {
+    internal init(parent: OpenSCAD, children: OpenSCAD) {
         self.parent = parent
         self.children = children
     }
     
-    public var body: Never { return fatalError() }
-    let parent: ParentContent
-    let children: ChildContent
+    public var body: OpenSCAD { fatalError() }
+    let parent: OpenSCAD
+    let children: OpenSCAD
 
-    public init(@SCADBuilder from parent: () -> ParentContent, children: () -> ChildContent) {
+    public init(@SCADBuilder from parent: () -> OpenSCAD, children: () -> OpenSCAD) {
         self.parent = parent()
         self.children = children()
     }
 
-    fileprivate init(from parent: ParentContent, children: ChildContent) {
+    fileprivate init(from parent: OpenSCAD, children: OpenSCAD) {
         self.parent = parent
         self.children = children
     }
 
-    public var scad: SCAD {
-        .difference(parent: parent.scad, children: children.scad)
+    var scad: SCAD {
+        .difference(parent: skad(of: parent), children: skad(of: children))
     }
 }
 
 public extension OpenSCAD {
-    func subtracted<Content: OpenSCAD>(@SCADBuilder from parent: () -> Content) -> some OpenSCAD {
+    func subtracted(@SCADBuilder from parent: () -> OpenSCAD) -> some OpenSCAD {
         subtracted(from: parent())
     }
 
-    func subtracted<Content: OpenSCAD>(from parent: Content) -> some OpenSCAD {
+    func subtracted(from parent: OpenSCAD) -> some OpenSCAD {
         Difference(from: parent, children: self)
     }
 }
 
-public struct Intersection<Content: OpenSCAD>: OpenSCAD {
-    public var body: Never { return fatalError() }
-    let content: Content
+public struct Intersection: OpenSCAD, BaseOpenSCAD {
+    public var body: OpenSCAD { fatalError() }
+    let content: OpenSCAD
 
-    public init(@SCADBuilder content: () -> Content) {
+    public init(@SCADBuilder content: () -> OpenSCAD) {
         self.content = content()
     }
 
-    fileprivate init(content: Content) {
+    fileprivate init(content: OpenSCAD) {
         self.content = content
     }
 
-    public var scad: SCAD {
-        .intersection(content: content.scad)
+    var scad: SCAD {
+        .intersection(content: skad(of: content))
     }
 }
 
 public extension OpenSCAD {
-    func intersection<Content: OpenSCAD>(@SCADBuilder with content: () -> Content) -> some OpenSCAD {
+    func intersection(@SCADBuilder with content: () -> OpenSCAD) -> some OpenSCAD {
         intersection(with: content())
     }
 
-    func intersection<Content: OpenSCAD>(with content: Content) -> some OpenSCAD {
-        Intersection(content: TupleSCAD2(self, content))
+    func intersection(with content: OpenSCAD) -> some OpenSCAD {
+        Intersection(content: SCADList(list: [self, content]))
     }
 }

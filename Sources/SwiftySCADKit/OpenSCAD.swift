@@ -1,6 +1,6 @@
 import Foundation
 
-public indirect enum SCAD {
+indirect enum SCAD {
     case literal(literal: String)
     case list(content: [SCAD])
 
@@ -129,36 +129,32 @@ func parse(scad: SCAD) -> String {
     }
 }
 
-public func parse<T: OpenSCAD>(scad: T) -> String {
-    return parse(scad: scad.scad)
+public func parse(scad s: OpenSCAD) -> String {
+    return parse(scad: skad(of: s))
 }
 
 public protocol OpenSCAD {
-    associatedtype Body: OpenSCAD
-
-    var body: Self.Body { get }
-
+    var body: OpenSCAD { get }
+}
+protocol BaseOpenSCAD {
     var scad: SCAD { get }
+}
+func skad(of scad: OpenSCAD) -> SCAD {
+    if let s = scad as? BaseOpenSCAD {
+        return s.scad
+    } else {
+        return skad(of: scad.body)
+    }
 }
 
 extension Never: OpenSCAD {
-    public var body: Never {
-        return fatalError()
-    }
-
-    public var scad: SCAD {
-        .literal(literal: "")
+    public var body: OpenSCAD {
+        fatalError()
     }
 }
 
-public extension OpenSCAD {
-    var scad: SCAD {
-        return body.scad
-    }
-}
-
-public struct Literal: OpenSCAD {
-    public var body: Never { return fatalError() }
+public struct SCADLiteral: OpenSCAD, BaseOpenSCAD {
+    public var body: OpenSCAD { fatalError() }
     let literal: String
 
     /// Creates a new OpenSCAD literal with the specified raw value.
@@ -169,109 +165,32 @@ public struct Literal: OpenSCAD {
         self.literal = SCAD
     }
 
-    public var scad: SCAD {
+    var scad: SCAD {
         .literal(literal: literal)
     }
 }
 
-public protocol TupleSCAD: OpenSCAD {}
-public struct TupleSCAD2<T1: OpenSCAD, T2: OpenSCAD>: TupleSCAD {
-    public var body: Never { return fatalError() }
+public struct SCADList: OpenSCAD, BaseOpenSCAD {
+    public var body: OpenSCAD { fatalError() }
+    let list: [OpenSCAD]
 
-    let value1: T1
-    let value2: T2
-
-    init(_ v1: T1, _ v2: T2) {
-        value1 = v1
-        value2 = v2
-    }
-
-    public var scad: SCAD {
-        .list(content: [value1.scad, value2.scad])
-    }
-}
-public struct TupleSCAD3<T1: OpenSCAD, T2: OpenSCAD, T3: OpenSCAD>: TupleSCAD {
-    public var body: Never { return fatalError() }
-
-    let value1: T1
-    let value2: T2
-    let value3: T3
-
-    init(_ v1: T1, _ v2: T2, _ v3: T3) {
-        value1 = v1
-        value2 = v2
-        value3 = v3
-    }
-
-    public var scad: SCAD {
-        .list(content: [value1.scad, value2.scad, value3.scad])
-    }
-}
-public struct TupleSCAD4<T1: OpenSCAD, T2: OpenSCAD, T3: OpenSCAD, T4: OpenSCAD>: TupleSCAD {
-    public var body: Never { return fatalError() }
-
-    let value1: T1
-    let value2: T2
-    let value3: T3
-    let value4: T4
-
-    init(_ v1: T1, _ v2: T2, _ v3: T3, _ v4: T4) {
-        value1 = v1
-        value2 = v2
-        value3 = v3
-        value4 = v4
-    }
-
-    public var scad: SCAD {
-        .list(content: [value1.scad, value2.scad, value3.scad, value4.scad])
-    }
-}
-public struct TupleSCAD5<T1: OpenSCAD, T2: OpenSCAD, T3: OpenSCAD, T4: OpenSCAD, T5: OpenSCAD>: TupleSCAD {
-    public var body: Never { return fatalError() }
-
-    let value1: T1
-    let value2: T2
-    let value3: T3
-    let value4: T4
-    let value5: T5
-
-    init(_ v1: T1, _ v2: T2, _ v3: T3, _ v4: T4, _ v5: T5) {
-        value1 = v1
-        value2 = v2
-        value3 = v3
-        value4 = v4
-        value5 = v5
-    }
-
-    public var scad: SCAD {
-        .list(content: [value1.scad, value2.scad, value3.scad, value4.scad, value5.scad])
+    var scad: SCAD {
+        .list(content: list.map(skad(of:)))
     }
 }
 
 @_functionBuilder
 public struct SCADBuilder {
-    public static func buildBlock() -> Literal {
-        return Literal("")
+    public static func buildBlock() -> SCADLiteral {
+        return SCADLiteral("")
     }
 
     public static func buildBlock<Content: OpenSCAD>(_ content: Content) -> Content {
         return content
     }
 
-    public static func buildBlock<C0: OpenSCAD, C1: OpenSCAD>(_ c0: C0, _ c1: C1) -> TupleSCAD2<C0, C1> {
-        return TupleSCAD2(c0, c1)
-    }
-
-    public static func buildBlock<C0: OpenSCAD, C1: OpenSCAD, C2: OpenSCAD>(_ c0: C0, _ c1: C1, _ c2: C2) -> TupleSCAD3<C0, C1, C2> {
-        return TupleSCAD3(c0, c1, c2)
-    }
-
-    public static func buildBlock<C0: OpenSCAD, C1: OpenSCAD, C2: OpenSCAD, C3: OpenSCAD>(_ c0: C0, _ c1: C1, _ c2: C2, _ c3: C3) -> TupleSCAD4<C0, C1, C2, C3> {
-        return TupleSCAD4(c0, c1, c2, c3)
-    }
-
-    public static func buildBlock<C0: OpenSCAD, C1: OpenSCAD, C2: OpenSCAD, C3: OpenSCAD, C4: OpenSCAD>(_ c0: C0, _ c1: C1, _ c2: C2, _ c3: C3, _ c4: C4) -> TupleSCAD5<C0, C1, C2, C3, C4> {
-        return TupleSCAD5(c0, c1, c2, c3, c4)
+    public static func buildBlock(_ list: OpenSCAD...) -> SCADList {
+        return SCADList(list: list)
     }
 }
 
@@ -285,11 +204,11 @@ public struct Config {
 /// The configuration for SwiftySCADKit.
 public var OPENSCAD_CONFIG: Config = Config()
 
-public func OPENSCAD_copyToClipboard<T: OpenSCAD>(_ scad: T) {
+public func OPENSCAD_copyToClipboard(_ scad: OpenSCAD) {
     let pipe = Pipe()
     let echo = Process()
     echo.launchPath = "/bin/echo"
-    echo.arguments = ["-n", "\(parse(scad: scad.scad))"]
+    echo.arguments = ["-n", "\(parse(scad: scad))"]
     echo.standardOutput = pipe
     echo.launch()
     let pbcopy = Process()
@@ -298,11 +217,11 @@ public func OPENSCAD_copyToClipboard<T: OpenSCAD>(_ scad: T) {
     pbcopy.launch()
     pbcopy.waitUntilExit()
 }
-public func OPENSCAD_print<T: OpenSCAD>(_ scad: T) {
-    print(parse(scad: scad.scad))
+public func OPENSCAD_print(_ scad: OpenSCAD) {
+    print(parse(scad: scad))
 }
 #if os(macOS)
-public func OPENSCAD_openInEditor<T: OpenSCAD>(_ scad: T) {
+public func OPENSCAD_openInEditor(_ scad: OpenSCAD) {
     OPENSCAD_copyToClipboard(scad)
     NSAppleScript(source: """
 tell application "OpenSCAD" to activate

@@ -1,28 +1,28 @@
 import Foundation
 
-public struct Scale<Content: OpenSCAD>: OpenSCAD {
-    public var body: Never { fatalError() }
-    let content: Content
+public struct Scale: OpenSCAD, BaseOpenSCAD {
+    public var body: OpenSCAD { fatalError() }
+    let content: OpenSCAD
     let x: Double
     let y: Double
     let z: Double
 
-    public init(by dx: Double, _ dy: Double, _ dz: Double, @SCADBuilder content: () -> Content) {
+    public init(by dx: Double, _ dy: Double, _ dz: Double, @SCADBuilder content: () -> OpenSCAD) {
         x = dx
         y = dy
         z = dz
         self.content = content()
     }
 
-    fileprivate init(by dx: Double, _ dy: Double, _ dz: Double, content: Content) {
+    fileprivate init(by dx: Double, _ dy: Double, _ dz: Double, content: OpenSCAD) {
         x = dx
         y = dy
         z = dz
         self.content = content
     }
 
-    public var scad: SCAD {
-        .scale(x: x, y: y, z: z, content: content.scad)
+    var scad: SCAD {
+        .scale(x: x, y: y, z: z, content: skad(of: content))
     }
 }
 
@@ -32,29 +32,29 @@ public extension OpenSCAD {
     }
 }
 
-public struct Resize<Content: OpenSCAD>: OpenSCAD {
-    public var body: Never { fatalError() }
-    let content: Content
+public struct Resize: OpenSCAD, BaseOpenSCAD {
+    public var body: OpenSCAD { fatalError() }
+    let content: OpenSCAD
     let x: Double
     let y: Double
     let z: Double
 
-    public init(to newx: Double, _ newy: Double, _ newz: Double, @SCADBuilder content: () -> Content) {
+    public init(to newx: Double, _ newy: Double, _ newz: Double, @SCADBuilder content: () -> OpenSCAD) {
         x = newx
         y = newy
         z = newz
         self.content = content()
     }
 
-    fileprivate init(to newx: Double, _ newy: Double, _ newz: Double, content: Content) {
+    fileprivate init(to newx: Double, _ newy: Double, _ newz: Double, content: OpenSCAD) {
         x = newx
         y = newy
         z = newz
         self.content = content
     }
 
-    public var scad: SCAD {
-        .resize(x: x, y: y, z: z, content: content.scad)
+    var scad: SCAD {
+        .resize(x: x, y: y, z: z, content: skad(of: content))
     }
 }
 
@@ -64,29 +64,29 @@ public extension OpenSCAD {
     }
 }
 
-public struct Rotate<Content: OpenSCAD>: OpenSCAD {
-    public var body: Never { fatalError() }
-    let content: Content
+public struct Rotate: OpenSCAD, BaseOpenSCAD {
+    public var body: OpenSCAD { fatalError() }
+    let content: OpenSCAD
     let x: Double
     let y: Double
     let z: Double
 
-    public init(by dx: Double, _ dy: Double, _ dz: Double, @SCADBuilder content: () -> Content) {
+    public init(by dx: Double, _ dy: Double, _ dz: Double, @SCADBuilder content: () -> OpenSCAD) {
         x = dx
         y = dy
         z = dz
         self.content = content()
     }
 
-    fileprivate init(by dx: Double, _ dy: Double, _ dz: Double, content: Content) {
+    fileprivate init(by dx: Double, _ dy: Double, _ dz: Double, content: OpenSCAD) {
         x = dx
         y = dy
         z = dz
         self.content = content
     }
 
-    public var scad: SCAD {
-        .rotate(x: x, y: y, z: z, content: content.scad)
+    var scad: SCAD {
+        .rotate(x: x, y: y, z: z, content: skad(of: content))
     }
 }
 
@@ -96,29 +96,29 @@ public extension OpenSCAD {
     }
 }
 
-public struct Translate<Content: OpenSCAD>: OpenSCAD {
-    public var body: Never { fatalError() }
-    let content: Content
+public struct Translate: OpenSCAD, BaseOpenSCAD {
+    public var body: OpenSCAD { fatalError() }
+    let content: OpenSCAD
     let x: Double
     let y: Double
     let z: Double
 
-    public init(by dx: Double, _ dy: Double, _ dz: Double, @SCADBuilder content: () -> Content) {
+    public init(by dx: Double, _ dy: Double, _ dz: Double, @SCADBuilder content: () -> OpenSCAD) {
         x = dx
         y = dy
         z = dz
         self.content = content()
     }
 
-    fileprivate init(by dx: Double, _ dy: Double, _ dz: Double, content: Content) {
+    fileprivate init(by dx: Double, _ dy: Double, _ dz: Double, content: OpenSCAD) {
         x = dx
         y = dy
         z = dz
         self.content = content
     }
 
-    public var scad: SCAD {
-        .translation(x: x, y: y, z: z, content: content.scad)
+    var scad: SCAD {
+        .translation(x: x, y: y, z: z, content: skad(of: content))
     }
 }
 
@@ -128,29 +128,29 @@ public extension OpenSCAD {
     }
 }
 
-public struct Mirror<Content: OpenSCAD>: OpenSCAD {
-    public var body: Never { fatalError() }
-    let content: Content
+public struct Mirror: OpenSCAD, BaseOpenSCAD {
+    public var body: OpenSCAD { fatalError() }
+    let content: OpenSCAD
     let x: Double
     let y: Double
     let z: Double
 
-    public init(across dx: Double, _ dy: Double, _ dz: Double, @SCADBuilder content: () -> Content) {
+    public init(across dx: Double, _ dy: Double, _ dz: Double, @SCADBuilder content: () -> OpenSCAD) {
         x = dx
         y = dy
         z = dz
         self.content = content()
     }
 
-    fileprivate init(across dx: Double, _ dy: Double, _ dz: Double, content: Content) {
+    fileprivate init(across dx: Double, _ dy: Double, _ dz: Double, content: OpenSCAD) {
         x = dx
         y = dy
         z = dz
         self.content = content
     }
 
-    public var scad: SCAD {
-        .mirror(x: x, y: y, z: z, content: content.scad)
+    var scad: SCAD {
+        .mirror(x: x, y: y, z: z, content: skad(of: content))
     }
 }
 
@@ -160,15 +160,15 @@ public extension OpenSCAD {
     }
 }
 
-public struct Color<Content: OpenSCAD>: OpenSCAD {
-    public var body: Never { fatalError() }
-    let content: Content
+public struct Color: OpenSCAD, BaseOpenSCAD {
+    public var body: OpenSCAD { fatalError() }
+    let content: OpenSCAD
     let r: Double
     let g: Double
     let b: Double
     let a: Double
 
-    public init(_ r: Double, _ g: Double, _ b: Double, _ a: Double, @SCADBuilder content: () -> Content) {
+    public init(_ r: Double, _ g: Double, _ b: Double, _ a: Double, @SCADBuilder content: () -> OpenSCAD) {
         self.r = r
         self.g = g
         self.b = b
@@ -176,7 +176,7 @@ public struct Color<Content: OpenSCAD>: OpenSCAD {
         self.content = content()
     }
 
-    fileprivate init(_ r: Double, _ g: Double, _ b: Double, _ a: Double, content: Content) {
+    fileprivate init(_ r: Double, _ g: Double, _ b: Double, _ a: Double, content: OpenSCAD) {
         self.r = r
         self.g = g
         self.b = b
@@ -184,8 +184,8 @@ public struct Color<Content: OpenSCAD>: OpenSCAD {
         self.content = content
     }
 
-    public var scad: SCAD {
-        .color(r: r, g: g, b: b, a: a, content: content.scad)
+    var scad: SCAD {
+        .color(r: r, g: g, b: b, a: a, content: skad(of: content))
     }
 }
 

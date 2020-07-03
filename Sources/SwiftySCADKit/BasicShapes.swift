@@ -1,7 +1,7 @@
 import Foundation
 
-public struct Cube: OpenSCAD {
-    public var body: Never { fatalError() }
+public struct Cube: OpenSCAD, BaseOpenSCAD {
+    public var body: OpenSCAD { fatalError() }
     let height: Double
     let width: Double
     let depth: Double
@@ -29,7 +29,7 @@ public struct Cube: OpenSCAD {
         self.centered = centered
     }
 
-    public var scad: SCAD {
+    var scad: SCAD {
         .cube(height: height, width: width, depth: depth, centered: centered)
     }
 }
@@ -45,8 +45,8 @@ public func RectangularPrism(height: Double, width: Double, depth: Double, cente
     return Cube(height: height, width: width, depth: depth, centered: centered)
 }
 
-public struct Sphere: OpenSCAD {
-    public var body: Never { fatalError() }
+public struct Sphere: OpenSCAD, BaseOpenSCAD {
+    public var body: OpenSCAD { fatalError() }
     let radius: Double
 
     /// Creates a sphere with the specified radius. It will be centered on the origin.
@@ -56,13 +56,13 @@ public struct Sphere: OpenSCAD {
         self.radius = radius
     }
 
-    public var scad: SCAD {
+    var scad: SCAD {
         .sphere(radius)
     }
 }
 
-public struct Cylinder: OpenSCAD {
-    public var body: Never { fatalError() }
+public struct Cylinder: OpenSCAD, BaseOpenSCAD {
+    public var body: OpenSCAD { fatalError() }
     let height: Double
     let topRadius: Double
     let bottomRadius: Double
@@ -89,12 +89,12 @@ public struct Cylinder: OpenSCAD {
         self.centered = centered
     }
 
-    public var scad: SCAD {
+    var scad: SCAD {
         .cylinder(height: height, topRadius: topRadius, bottomRadius: bottomRadius, centered: centered)
     }
 }
 
-public struct Polyhedron: OpenSCAD {
+public struct Polyhedron: OpenSCAD, BaseOpenSCAD {
     /// A representation of a point in 3D space.
     public struct Point: Hashable {
         /// The x value of the point.
@@ -135,7 +135,7 @@ public struct Polyhedron: OpenSCAD {
         }
     }
 
-    public var body: Never { fatalError() }
+    public var body: OpenSCAD { fatalError() }
     let faces: [Face]
 
     /// Creates a polyhedron from an array of `Face`s that bound it.
@@ -151,7 +151,7 @@ public struct Polyhedron: OpenSCAD {
         self.init(faces: faces)
     }
 
-    public var scad: SCAD {
+    var scad: SCAD {
         .polyhedron(faces: faces)
     }
 }
